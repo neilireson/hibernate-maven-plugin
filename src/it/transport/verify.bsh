@@ -1,0 +1,9 @@
+import de.juplo.test.FileComparator;
+
+
+FileComparator comparator = new FileComparator(basedir);
+
+if (!comparator.isEqual("drop.sql","target/drop.sql"))
+  return false;
+if (!comparator.isEqual("create.sql","target/create.sql"))
+  return false;

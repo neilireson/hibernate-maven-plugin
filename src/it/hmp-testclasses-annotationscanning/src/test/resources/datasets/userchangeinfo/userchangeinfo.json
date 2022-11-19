@@ -1,0 +1,15 @@
+{
+	"HMP_UCI_TEST_ENTITY":
+	[
+		{
+			"ID":1001,
+			"NAME":"Test UserChangeInfo-Entity ohne UserChangeInfo",
+			"ERSTELLT_AM":"2014-01-01 12:12:12",
+			"ERSTELLT_VON":"aq-p"
+		},
+		{
+			"ID":1002,
+			"NAME":"Testentity - alle UserChangeInfoFelder sind null"
+		}
+	]
+}

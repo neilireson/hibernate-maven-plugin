@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.1.RELEASE</version>
+  </parent>
+
+  <groupId>de.juplo.yourshouter.api</groupId>
+  <artifactId>transport-MINIMAL-FOR-HIBERNATE-MAVEN-PLUGIN-TEST</artifactId>
+  <version>1.5.1</version>
+  <name>yourSHOUTER - API - Transport</name>
+  <description>Transport-Helper-Classes for the REST-API</description>
+
+  <organization>
+    <name>yourSHOUTER UG (haftungsbeschränkt)</name>
+    <url>http://yourshouter.com/projekte/crowdgestützte-veranstaltungs-suchmaschine.html</url>
+  </organization>
+
+
+  <properties>
+
+    <!-- settings for Spring-Boot -->
+    <java.version>1.8</java.version>
+
+    <!-- database settings for tests -->
+    <jdbc.groupId>com.h2database</jdbc.groupId>
+    <jdbc.artifactId>h2</jdbc.artifactId>
+    <jdbc.version>${h2.version}</jdbc.version>
+    <jdbc.driver-class-name>org.h2.Driver</jdbc.driver-class-name>
+    <jdbc.dialect>org.hibernate.dialect.H2Dialect</jdbc.dialect>
+    <jdbc.url><![CDATA[jdbc:h2:${project.basedir}/target/db/data-api]]></jdbc.url>
+    <jdbc.username>sa</jdbc.username>
+    <jdbc.password></jdbc.password>
+
+    <!-- used versions -->
+    <data-model.version>1.5.1</data-model.version>
+    <jpa-converters.version>1.0.0</jpa-converters.version>
+    <storage.version>1.5.1</storage.version>
+    <persistence.version>1.5.1</persistence.version>
+    <persistence-mem.version>1.5.1</persistence-mem.version>
+    <persistence-jpa.version>1.5.1</persistence-jpa.version>
+
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>storage</artifactId>
+      <version>${storage.version}</version>
+    </dependency>
+
+    <!-- Test-Dependicies -->
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>persistence</artifactId>
+      <version>${persistence.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>data-model</artifactId>
+      <version>${data-model.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>storage</artifactId>
+      <version>${storage.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>persistence-jpa</artifactId>
+      <version>${persistence-jpa.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo</groupId>
+      <artifactId>jpa-converters</artifactId>
+      <version>${jpa-converters.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>persistence-jpa</artifactId>
+      <version>${persistence-jpa.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>persistence-mem</artifactId>
+      <version>${persistence-mem.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.juplo.yourshouter.api</groupId>
+      <artifactId>persistence-mem</artifactId>
+      <version>${persistence-mem.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <!-- JPA only -->
+    <dependency>
+      <groupId>${jdbc.groupId}</groupId>
+      <artifactId>${jdbc.artifactId}</artifactId>
+      <version>${jdbc.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>juplo</id>
+      <name>Repository for internal artifacts on juplo.de</name>
+      <url>http://juplo.de/maven2</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>juplo</id>
+      <name>Repository for internal artifacts on juplo.de</name>
+      <url>scpexe://juplo.de/var/www/juplo.de/maven2</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>de.juplo</groupId>
+        <artifactId>hibernate-maven-plugin</artifactId>
+        <version>@project.version@</version>
+        <configuration>
+          <execute>true</execute>
+          <show>true</show>
+          <format>true</format>
+          <url>${jdbc.url}</url>
+          <username>${jdbc.username}</username>
+          <password>${jdbc.password}</password>
+          <driver>${jdbc.driver-class-name}</driver>
+          <dialect>${jdbc.dialect}</dialect>
+          <scanDependencies>test</scanDependencies>
+        </configuration>
+        <executions>
+          <execution>
+            <id>Execute Drop-Schema</id>
+            <goals>
+              <goal>drop</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>Execute Create-Schema</id>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+            <version>${jdbc.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

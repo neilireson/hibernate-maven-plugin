@@ -1,0 +1,9 @@
+import de.juplo.test.FileComparator;
+
+
+FileComparator comparator = new FileComparator(basedir);
+
+if (!comparator.isEqual("drop-schema.ddl","target/db-schema/drop-schema.ddl"))
+  return false;
+if (!comparator.isEqual("create-schema.ddl","target/db-schema/create-schema.ddl"))
+  return false;

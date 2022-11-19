@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ </head>
+ <body>
+  <header><h1>Known Pitfalls (FAQ)</h1></header>
+  <h2>Annotated classes in dependencies are not found.</h2>
+  <p>
+  hibernate-maven-plugin by default scans dependencies in the scope
+  <code>compile</code>. You can configure it to scan dependencies in other
+  scopes as well. But it scans only direct dependencies. Transitive
+  dependencies are not scanned for annotated classes. If some of your
+  annotated classes are hidden in a transitive dependency, you can simply
+  add that dependency explicitly.
+  </p>
+  <h2>hibernate-maven-plugin always needs a database-connection</h2>
+  <p>
+  The default-configuration executes the created SQL.
+  Therefore, it needs a valid database-connection and fails, if none is
+  available.
+  If you do not need the generated SQL to be executed automatically,
+  you can set the property <code>hibernate.schema.execute</code> to
+  <code>false</code>.
+  This can be achieved with the command-line parameter
+  <code>-Dhibernate.schema.execute=false</code> or with the following
+  configuration:
+  </p>
+  <pre class="prettyprint linenums lang-html">
+&lt;configuration&gt;
+  &lt;execute&gt;false&lt;/execute&gt;
+&lt;/configuration&gt;</pre>
+  <p>
+  But even when no database is to be created, hibernate always needs to know
+  the dialect. Hence, the plugin will still fail, if this parameter is also
+  missing!
+  </p>
+  <h2>Dependency for driver-class XYZ is missing</h2>
+  <p>
+  One regular problem is the scope of the jdbc-driver-dependency.
+  It is very unlikely, that this dependency is needed at compile-time.
+  So a tidy maven-developer would usually scope it for <code>runtime</code>.
+  </p>
+  <p>
+  But this will break the execution of the <code>hibernate-maven-plugin</code>.
+  Since it will not be able to see the needed dependency, it will fail with
+  an error-message like:
+  </p>
+  <pre class="prettyprint">
+[INFO] Gathered hibernate-configuration (turn on debugging for details):
+[INFO]   hibernate.connection.username = sa
+[INFO]   hibernate.connection.password = 
+[INFO]   hibernate.dialect = org.hibernate.dialect.H2Dialect
+[INFO]   hibernate.connection.url = jdbc:h2:file:./db
+[INFO]   hibernate.hbm2dll.create_namespaces = false
+[INFO]   hibernate.connection.driver_class = org.h2.Driver
+[INFO]   hibernate.format_sql = true
+[INFO] HHH000412: Hibernate Core {5.0.2.Final}
+[INFO] HHH000206: hibernate.properties not found
+[INFO] HHH000021: Bytecode provider name : javassist
+[INFO] Adding /home/kai/project/target/classes to the list of roots to scan...
+[INFO] Adding dependencies from scope compile to the list of roots to scan
+[INFO] Adding dependencies from scope org.hibernate:hibernate-core:jar:4.3.0.Final to the list of roots to scan
+[INFO] Adding annotated resource: de.juplo.tests.SimplestMavenHib4Test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.760s
+[INFO] Finished at: Mon Mar 07 19:06:54 CET 2016
+[INFO] Final Memory: 11M/215M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal de.juplo:hibernate-maven-plugin:${project.version}:drop (default) on project hibernate4-properties-test: Could not open the JDBC-connection: Unable to load class [org.h2.Driver]: Could not load requested class : org.h2.Driver -&gt; [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException</pre>
+  <p>
+  A quick workaround for this error would be, to delete the runtime-constraint
+  for the jdbc-driver-dependency.
+  </p>
+  <p>
+  A much cleaner way is, to (additionally) ad the dependency, to the
+  plugin-definition:
+  </p>
+  <pre class="prettyprint linenums lang-html">
+&lt;plugin&gt;
+  &lt;groupId&gt;de.juplo&lt;/groupId&gt;
+  &lt;artifactId&gt;hibernate-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${project.version}&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;drop&lt;/goal&gt;
+        &lt;goal&gt;create&lt;/goal&gt;
+      &lt;/goals&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+  &lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.hsqldb&lt;/groupId&gt;
+    &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
+    &lt;version&gt;2.2.8&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/plugin&gt;</pre>
+  <p>
+  This is also the best way, if you use a different jdbc-driver for
+  testing, than in production.
+  Because otherwise, this dependency will unnecessarily bloat the
+  runtime-dependencies of your project.
+  </p>
+  <h2 id="fails">DBUnit fails after execution of hibernate was skipped because nothing has changed</h2>
+  <p>
+  If hibernate-maven-plugin skips its excecution, this may lead to errors in
+  other plugins.
+  For example, when importing sample-data in the automatically created database
+  with the help of the <a href="http://mojo.codehaus.org/dbunit-maven-plugin/">dbunit-plugin</a>,
+  the <code>CLEAN_INSERT</code>-operation may fail because of foreign-key-constraints,
+  if the database was not recreated, because the hibernate-maven-plugin has
+  skipped its excecution.
+  </p>
+  <p>
+  A quick fix to this problem is, to <a href="./force.html">force</a>
+  hibernate-maven-plugin to generate and execute the SQL every time it is running.
+  But to recreate the database on every testrun may noticeable slow down your
+  development cycle, if you have to wait for slow IO.
+  </p>
+  <p>
+  To circumvent this problem, hibernate-maven-plugin signals a skipped
+  excecution by setting the  maven property <code>${hibernate.schema.skipped}</code> to
+  <code>true</code>.
+  You can configure other plugins to react on this signal.
+  For example, the dbunit-plugin can be configured to skip its excecution, if
+  hibernate-maven-plugin was skipped like this:
+  </p>
+  <pre class="prettyprint linenums lang-html">
+&lt;plugin&gt;
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;dbunit-maven-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;skip&gt;${hibernate.schema.skipped}&lt;/skip&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+  <h2>The database will not be recreated after a manual drop/clean</h2>
+  <p>
+  If one manually drops the database or removes the hsqldb-files, it will not
+  be recreated by the hibernate-maven-plugin, because it cannot detect, that
+  the database needs to be recreated.
+  This happens, because the plugin will not recreate the database if neither
+  the configuration nor the annotated classes have changed, because an
+  unnecessary drop-create-cycle might take a long time. The plugin will
+  report that like this:
+  </p>
+  <pre class="prettyprint">
+[INFO] No modified annotated classes found and dialect unchanged.
+[INFO] Skipping schema generation!</pre>
+  <p>
+  If one always uses <code>mvn clean</code> for cleanup, this will not happen.
+  Otherwise the recreation must be <a href="./force.html">forced</a>:
+  </p>
+  <pre class="prettyprint">
+mvn hibernate:create -Dhibernate.schema.force=true</pre>
+  <h2>The hibernate:create goal is not executed, when tests are skipped</h2>
+  <p>
+  The hibernate-maven-plugin automatically skips its execution, when
+  <code>maven.test.skip</code> is set to <code>true</code>. If you need it to be always
+  executed, you can configure that explicitly like this:
+  </p>
+  <pre class="prettyprint linenums lang-html">
+&lt;plugin&gt;
+  &lt;groupId&gt;de.juplo&lt;/groupId&gt;
+  &lt;artifactId&gt;hibernate-maven-plugin&lt;/artifactId&gt;
+  ...
+  &lt;configuration&gt;
+    &lt;skip&gt;false&lt;/skip&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+  <p>
+  Background-information for this design-decission can be found on the extra
+  page <a href="./skip.html">To skip or not to skip: that is the question</a>...
+  </p>
+  <h2>I do not want my dependencies to be scanned for hibernate annotations</h2>
+  <p>
+    If you do not want your dependencies to be scanned for hibernate annotations,
+    you can pass <code>-Dhibernate.schema.scan.dependencies=none</code> to maven
+    or set <code>scanDependencies</code> to <code>none</code> in the configuration
+    of the plugin like this:
+  </p>
+  <pre class="prettyprint linenums lang-html">
+&lt;plugin&gt;
+  &lt;groupId&gt;de.juplo&lt;/groupId&gt;
+  &lt;artifactId&gt;hibernate-maven-plugin&lt;/artifactId&gt;
+  ...
+  &lt;configuration&gt;
+    &lt;scanDependencies&gt;none&lt;/scanDependencies&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+  <h2>No annotated classes found</h2>
+  <p>
+    If you are working under Windows and get the error-message
+    <code>No annotated classes found in directory C:\projects\X Y Z\path-to-project\target\classes</code>,
+    but you are really sure, that there are annotated classes in that
+    directory, you are expiriencing a bug, in the scannotation-library, that
+    was closed in version 1.1.0 of the hibernate-maven-plugin.
+  </p>
+  <p>
+    <strong>
+      You should consider to upgrade to the latest version of the plugin.
+    </strong>
+  </p>
+  <h2>If two goals are specified, the second one is always skipped</h2>
+  <p>
+    If you specify two goals, for example <code>drop</code> and
+    <code>create</code>, each goal has to be specified in its own
+    <code>execution</code>, so that you can specify two different
+    output-files for the two goals.
+    Otherwise, both goals will use the same output-file and the goal, that
+    is run second, will always skip, becaus it will find, that the output
+    file already exists and conclude, that its work was already done in a
+    prior run.
+  </p>
+  <p>
+    Example configuration for two goals:
+  </p>
+  <pre class="prettyprint linenums lang-html">
+&lt;executions&gt;
+  &lt;execution&gt;
+    &lt;id&gt;Create Drop-Schema&lt;/id&gt;
+    &lt;phase&gt;test-compile&lt;/phase&gt;
+    &lt;goals&gt;
+      &lt;goal&gt;drop&lt;/goal&gt;
+    &lt;/goals&gt;
+    &lt;configuration&gt;
+      &lt;outputFile&gt;db-schema/drop-schema.ddl&lt;/outputFile&gt;
+    &lt;/configuration&gt;
+  &lt;/execution&gt;
+  &lt;execution&gt;
+    &lt;id&gt;Create Create-Schema&lt;/id&gt;
+    &lt;phase&gt;test-compile&lt;/phase&gt;
+    &lt;goals&gt;
+      &lt;goal&gt;create&lt;/goal&gt;
+    &lt;/goals&gt;
+    &lt;configuration&gt;
+      &lt;outputFile&gt;db-schema/create-schema.ddl&lt;/outputFile&gt;
+    &lt;/configuration&gt;
+  &lt;/execution&gt;
+&lt;/executions&gt;</pre>
+ </body>
+</html>

@@ -1,0 +1,31 @@
+<project>
+  <body>
+    <menu>
+      <item name="Hibernate Maven Plugin" href="index.html"/>
+      <item name="Configuration Examples" href="configuration.html"/>
+      <item name="Goal: CREATE" href="create-mojo.html"/>
+      <item name="Goal: DROP" href="drop-mojo.html"/>
+      <item name="Enable Debugging-Output" href="debugging.html"/>
+      <item name="Skipping Execution" href="skip.html"/>
+      <item name="Force Exceution" href="force.html"/>
+      <item name="Known Pitfalls (FAQ)" href="pitfalls.html"/>
+      <item name="Project Information" href="project-info.html"/>
+      <item name="Project Reports" href="project-reports.html"/>
+    </menu>
+    <menu ref="reports"/>
+  </body>
+  <skin>
+    <groupId>de.juplo.maven</groupId>
+    <artifactId>maven-thymeleaf-skin</artifactId>
+    <version>1.1.0</version>
+  </skin>
+  <custom>
+    <thymeproxy>
+      <path>/hibernate-maven-plugin/</path>
+      <prefix>/projects</prefix>
+      <crumbs>"/index.html","/projects.html"</crumbs>
+      <command>th:replace="~{/templates/layout.html :: layout(uri='' + ~{:: code[class='site_uri']/text()}, title=~{:: title}, maincontent=~{:: .maincontent}, json='MERGE:' + ~{:: pre[class='json']/text()})}"</command>
+    </thymeproxy>
+  </custom>
+</project>
+

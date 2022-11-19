@@ -1,0 +1,28 @@
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+	<extension qualifier="persistence">
+		<property name="defaultTransactionMode">DISABLED</property>
+	</extension>
+
+	<container default="true" qualifier="openejb-embedded-4">
+		<configuration>
+		
+			<!-- First Declaration-Block in the "properties"-property is for the BoaArquillianTest Datasource -->
+			<!-- Second Declaration-Block in the "properties"-property is for the System-Properties like Deltaspike ProjectStage,... -->
+			<property name="properties">
+				HmpArquillianTest = new://Resource?type=DataSource
+				HmpArquillianTest.JdbcUrl = jdbc:h2:file:target/db/test
+				HmpArquillianTest.UserName = sa
+				HmpArquillianTest.Password = sa
+				HmpArquillianTest.jdbcDriver = org.h2.Driver
+				
+				org.apache.deltaspike.ProjectStage=UnitTest
+				file.encoding=UTF-8
+			</property>
+		</configuration>
+	</container>
+</arquillian>
