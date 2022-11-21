@@ -13,8 +13,8 @@ import java.sql.Types;
 import java.util.Properties;
 
 /**
- * This Hibernate UserType is used to map JDK 5 Enums directly in a column.
- * Define this UserType in your hbm.xml mapping file like the following example:
+ * This Hibernate UserType is used to map JDK Enums directly in a column.
+ * Define this UserType in your xml mapping file like the following example:
  */
 public class EnumUserType implements EnhancedUserType, ParameterizedType {
 

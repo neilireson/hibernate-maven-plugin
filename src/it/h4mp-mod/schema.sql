@@ -21,7 +21,7 @@ create sequence hibernate_sequence start 1 increment 1;
         primary key (REV)
     );
 
-    alter table MainEntity_AUD 
-        add constraint FKdyho0e2yvr52e1nf5rt18k2ec 
-        foreign key (REV) 
+    alter table MainEntity_AUD
+        add constraint FKdyho0e2yvr52e1nf5rt18k2ec
+        foreign key (REV)
         references REVINFO;

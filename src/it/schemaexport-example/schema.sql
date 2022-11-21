@@ -14,7 +14,7 @@ create sequence hibernate_sequence start with 1 increment by 1;
         primary key (OID)
     );
 
-    alter table Employee 
-        add constraint FKps0mm7o60mrhle838yeh1u1rh 
-        foreign key (FK_department) 
+    alter table Employee
+        add constraint FKps0mm7o60mrhle838yeh1u1rh
+        foreign key (FK_department)
         references ABTEILUNG;

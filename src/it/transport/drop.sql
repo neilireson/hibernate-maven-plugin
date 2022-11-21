@@ -1,104 +1,104 @@
 
-    drop table Category_Category if exists;
+    drop table if exists Category_Category CASCADE ;
 
-    drop table Custom_Category if exists;
+    drop table if exists Custom_Category CASCADE ;
 
-    drop table Custom_contributors if exists;
+    drop table if exists Custom_contributors CASCADE ;
 
-    drop table Custom_emails if exists;
+    drop table if exists Custom_emails CASCADE ;
 
-    drop table Custom_links if exists;
+    drop table if exists Custom_links CASCADE ;
 
-    drop table Custom_numbers if exists;
+    drop table if exists Custom_numbers CASCADE ;
 
-    drop table Date_contributors if exists;
+    drop table if exists Date_contributors CASCADE ;
 
-    drop table Date_emails if exists;
+    drop table if exists Date_emails CASCADE ;
 
-    drop table Date_links if exists;
+    drop table if exists Date_links CASCADE ;
 
-    drop table Date_numbers if exists;
+    drop table if exists Date_numbers CASCADE ;
 
-    drop table Date_types if exists;
+    drop table if exists Date_types CASCADE ;
 
-    drop table Event_Category if exists;
+    drop table if exists Event_Category CASCADE ;
 
-    drop table Event_contributors if exists;
+    drop table if exists Event_contributors CASCADE ;
 
-    drop table Event_emails if exists;
+    drop table if exists Event_emails CASCADE ;
 
-    drop table Event_links if exists;
+    drop table if exists Event_links CASCADE ;
 
-    drop table Event_numbers if exists;
+    drop table if exists Event_numbers CASCADE ;
 
-    drop table EventInfo_Group if exists;
+    drop table if exists EventInfo_Group CASCADE ;
 
-    drop table Exhibition_contributors if exists;
+    drop table if exists Exhibition_contributors CASCADE ;
 
-    drop table Exhibition_emails if exists;
+    drop table if exists Exhibition_emails CASCADE ;
 
-    drop table Exhibition_hours if exists;
+    drop table if exists Exhibition_hours CASCADE ;
 
-    drop table Exhibition_links if exists;
+    drop table if exists Exhibition_links CASCADE ;
 
-    drop table Exhibition_numbers if exists;
+    drop table if exists Exhibition_numbers CASCADE ;
 
-    drop table Group_contributors if exists;
+    drop table if exists Group_contributors CASCADE ;
 
-    drop table Group_emails if exists;
+    drop table if exists Group_emails CASCADE ;
 
-    drop table Group_links if exists;
+    drop table if exists Group_links CASCADE ;
 
-    drop table Group_numbers if exists;
+    drop table if exists Group_numbers CASCADE ;
 
-    drop table LegalPerson_Category if exists;
+    drop table if exists LegalPerson_Category CASCADE ;
 
-    drop table LegalPerson_emails if exists;
+    drop table if exists LegalPerson_emails CASCADE ;
 
-    drop table LegalPerson_links if exists;
+    drop table if exists LegalPerson_links CASCADE ;
 
-    drop table LegalPerson_numbers if exists;
+    drop table if exists LegalPerson_numbers CASCADE ;
 
-    drop table Location_Category if exists;
+    drop table if exists Location_Category CASCADE ;
 
-    drop table Location_emails if exists;
+    drop table if exists Location_emails CASCADE ;
 
-    drop table Location_hours if exists;
+    drop table if exists Location_hours CASCADE ;
 
-    drop table Location_links if exists;
+    drop table if exists Location_links CASCADE ;
 
-    drop table Location_numbers if exists;
+    drop table if exists Location_numbers CASCADE ;
 
-    drop table Node if exists;
+    drop table if exists Node CASCADE ;
 
-    drop table Node_features if exists;
+    drop table if exists Node_features CASCADE ;
 
-    drop table Node_fields if exists;
+    drop table if exists Node_fields CASCADE ;
 
-    drop table Node_Media if exists;
+    drop table if exists Node_Media CASCADE ;
 
-    drop table Node_Nodes if exists;
+    drop table if exists Node_Nodes CASCADE ;
 
-    drop table Nodes if exists;
+    drop table if exists Nodes CASCADE ;
 
-    drop table Nodes_Node if exists;
+    drop table if exists Nodes_Node CASCADE ;
 
-    drop table Organization_contributors if exists;
+    drop table if exists Organization_contributors CASCADE ;
 
-    drop table Place_Region if exists;
+    drop table if exists Place_Region CASCADE ;
 
-    drop table Price if exists;
+    drop table if exists Price CASCADE ;
 
-    drop table Price_emails if exists;
+    drop table if exists Price_emails CASCADE ;
 
-    drop table Price_links if exists;
+    drop table if exists Price_links CASCADE ;
 
-    drop table Price_numbers if exists;
+    drop table if exists Price_numbers CASCADE ;
 
-    drop table Region_City if exists;
+    drop table if exists Region_City CASCADE ;
 
-    drop table Source if exists;
+    drop table if exists Source CASCADE ;
 
-    drop table Source_features if exists;
+    drop table if exists Source_features CASCADE ;
 
-    drop table Source_types if exists;
+    drop table if exists Source_types CASCADE ;

@@ -29,7 +29,7 @@
     <!-- database settings for tests -->
     <jdbc.groupId>com.h2database</jdbc.groupId>
     <jdbc.artifactId>h2</jdbc.artifactId>
-    <jdbc.version>${h2.version}</jdbc.version>
+    <jdbc.version>1.4.200</jdbc.version>
     <jdbc.driver-class-name>org.h2.Driver</jdbc.driver-class-name>
     <jdbc.dialect>org.hibernate.dialect.H2Dialect</jdbc.dialect>
     <jdbc.url><![CDATA[jdbc:h2:${project.basedir}/target/db/data-api]]></jdbc.url>
@@ -125,7 +125,7 @@
       </snapshots>
       <id>juplo</id>
       <name>Repository for internal artifacts on juplo.de</name>
-      <url>http://juplo.de/maven2</url>
+      <url>https://juplo.de/maven2</url>
     </repository>
   </repositories>
 

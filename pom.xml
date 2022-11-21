@@ -9,7 +9,7 @@
   <description>A simple plugin for generating a database-schema from Hibernate-Mappings</description>
   <version>2.1.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <url>http://juplo.de/hibernate-maven-plugin/index.html</url>
+  <url>https://juplo.de/hibernate-maven-plugin/index.html</url>
 
   <prerequisites>
     <maven>2.0.6</maven>
@@ -18,7 +18,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
       <comments>A business-friendly OSS license</comments>
     </license>
@@ -27,7 +27,7 @@
   <scm>
     <connection>scm:git:http://juplo.de/git/hibernate-maven-plugin</connection>
     <developerConnection>scm:git:ssh://juplo.de:/var/lib/git/juplo/hibernate-maven-plugin</developerConnection>
-    <url>http://juplo.de/gitweb/?p=hibernate-maven-plugin;a=summary</url>
+    <url>https://juplo.de/gitweb/?p=hibernate-maven-plugin;a=summary</url>
   </scm>
 
   <developers>
@@ -116,7 +116,7 @@
 
   <ciManagement>
     <system>Continuum</system>
-    <url>http://juplo.de/continuum/</url>
+    <url>https://juplo.de/continuum/</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -129,7 +129,7 @@
     <!-- Zeichensatz -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Verwendete Versionen -->
-    <hibernate.version>5.2.18.Final</hibernate.version>
+    <hibernate.version>5.4.33.Final</hibernate.version>
     <hibernate-validator.version>5.3.1.Final</hibernate-validator.version>
     <el-api.version>3.0.0</el-api.version>
     <maven.version>3.3.3</maven.version>
@@ -178,6 +178,11 @@
       <groupId>de.juplo</groupId>
       <artifactId>scannotation</artifactId>
       <version>${scannotation.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.javassist</groupId>
+          <artifactId>javassist</artifactId>
+        </exclusion></exclusions>
     </dependency>
     <dependency>
       <groupId>com.pyx4j</groupId>
@@ -193,6 +198,13 @@
           <artifactId>maven-plugin-api</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.github.java-diff-utils/java-diff-utils -->
+    <dependency>
+      <groupId>io.github.java-diff-utils</groupId>
+      <artifactId>java-diff-utils</artifactId>
+      <version>4.12</version>
     </dependency>
   </dependencies>
 
@@ -311,7 +323,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.4</version>
+        <version>3.7.0</version>
         <executions>
           <execution>
             <id>generated-helpmojo</id>
@@ -412,13 +424,13 @@
         <version>3.4</version>
         <configuration>
           <linkXref>true</linkXref>
-          <targetJdk>1.5</targetJdk>
+          <targetJdk>1.8</targetJdk>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.4</version>
+        <version>3.7.0</version>
       </plugin>
     </plugins>
   </reporting>

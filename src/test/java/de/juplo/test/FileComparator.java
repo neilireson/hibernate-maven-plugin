@@ -1,67 +1,54 @@
 package de.juplo.test;
 
+import com.github.difflib.DiffUtils;
+import com.github.difflib.patch.AbstractDelta;
+import com.github.difflib.patch.Patch;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
-public class FileComparator
-{
-  private final File basedir;
-  private BufferedReader expectedReader;
-  private BufferedReader foundReader;
+public class FileComparator {
+    private final File basedir;
+    private BufferedReader expectedReader;
+    private BufferedReader foundReader;
 
-  public FileComparator(File basedir)
-  {
-    this.basedir = basedir;
-  }
-
-  public boolean isEqual(final String expectedFile, final String foundFile)
-    throws
-      FileNotFoundException,
-      IOException
-  {
-    File file;
-    String expected, found;
-
-    file = new File(basedir, expectedFile);
-    expectedReader = new BufferedReader(new FileReader(file));
-
-    file = new File(basedir, foundFile);
-    foundReader = new BufferedReader(new FileReader(file));
-
-
-    while ((expected = expectedReader.readLine()) != null)
-    {
-      found = foundReader.readLine();
-      if (found == null)
-      {
-        System.err.println("Found less content than expected!");
-        System.err.println("First missing line: " + expected);
-        return false;
-      }
-
-      expected = expected.trim();
-      found = found.trim();
-      if (!expected.equals(found))
-      {
-        System.err.println("Mismatch!");
-        System.err.println("Expected: " + expected);
-        System.err.println("Found:    " + found);
-        return false;
-      }
+    public FileComparator(File basedir) {
+        this.basedir = basedir;
     }
 
-    if ((found = foundReader.readLine()) != null)
-    {
-      System.err.println("Found more content than expected!");
-      System.err.println("Starting with: " + found);
-      return false;
-    }
+    public boolean isEqual(final String expectedFilename, final String foundFilename)
+            throws
+            IOException {
 
-    return true;
-  }
+        Path expected = new File(basedir, expectedFilename).toPath();
+        Path found = new File(basedir, foundFilename).toPath();
+        if (!Files.isRegularFile(expected))
+            throw new FileNotFoundException("Expected file does not exist: " + expected.toAbsolutePath());
+        if (!Files.isRegularFile(found))
+            throw new FileNotFoundException("Found file does not exist: " + found.toAbsolutePath());
+
+        //build simple lists of the lines of the two testfiles
+        List<String> original = Files.readAllLines(expected).stream().map(String::trim).collect(Collectors.toList());
+        List<String> revised = Files.readAllLines(found).stream().map(String::trim).collect(Collectors.toList());
+
+        //compute the patch: this is the diffutils part
+        Patch<String> patch = DiffUtils.diff(original, revised);
+
+        //simple output the computed patch to console
+        if (!patch.getDeltas().isEmpty()) {
+            for (AbstractDelta<String> delta : patch.getDeltas())
+                System.err.println(delta);
+            return false;
+        }
+        return true;
+    }
 }

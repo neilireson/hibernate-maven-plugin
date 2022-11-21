@@ -508,9 +508,9 @@ public abstract class AbstractSchemaMojo extends AbstractMojo
       else
         getLog().debug("Configuration unchanged.");
 
-      /** Check, that the outputfile is writable */
+      /** Check, that the output file is writable */
       final File output = getOutputFile(filename);
-      /** Check, if the outputfile is missing or was changed */
+      /** Check, if the output file is missing or was changed */
       checkOutputFile(output, tracker);
 
       /** Configure Hibernate */
@@ -548,7 +548,7 @@ public abstract class AbstractSchemaMojo extends AbstractMojo
       }
       else
       {
-        /** Follow configuration in persisten unit */
+        /** Follow configuration in persistent unit */
         if (scanClasses == null)
           scanClasses = !unit.isExcludeUnlistedClasses();
         getLog().debug("Compiling the dependencies, that are scanned for annotated classes");

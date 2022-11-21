@@ -10,18 +10,12 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
-import static org.eclipse.aether.repository.AuthenticationContext.PASSWORD;
-import static org.eclipse.aether.repository.AuthenticationContext.USERNAME;
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import static org.hibernate.cfg.AvailableSettings.DRIVER;
 import static org.hibernate.cfg.AvailableSettings.PASS;
 import static org.hibernate.cfg.AvailableSettings.URL;
 import static org.hibernate.cfg.AvailableSettings.USER;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
-import static org.hibernate.jpa.AvailableSettings.JDBC_DRIVER;
-import static org.hibernate.jpa.AvailableSettings.JDBC_PASSWORD;
-import static org.hibernate.jpa.AvailableSettings.JDBC_URL;
-import static org.hibernate.jpa.AvailableSettings.JDBC_USER;
 
 /**
  *
@@ -71,7 +65,7 @@ class SimpleConnectionProvider implements ConnectionProvider
           " as " + user +
           " with password " + password
           );
-    
+
       connection = DriverManager.getConnection(url, user, password);
     }
     catch (Exception e)
@@ -99,7 +93,7 @@ class SimpleConnectionProvider implements ConnectionProvider
   @Override
   public Connection getConnection() throws SQLException
   {
-    log.debug("Connection aquired.");
+    log.debug("Connection acquired.");
 
     if (connection == null)
       throw new SQLException("No connection available, because of insufficient connection information!");

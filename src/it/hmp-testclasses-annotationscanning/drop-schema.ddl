@@ -1,6 +1,6 @@
 
-    drop table HMP_FACHGEBIET if exists;
+    drop table if exists HMP_FACHGEBIET CASCADE ;
 
-    drop table HMP_UCI_TEST_ENTITY if exists;
+    drop table if exists HMP_UCI_TEST_ENTITY CASCADE ;
 
     drop sequence if exists HMP_SEQ;

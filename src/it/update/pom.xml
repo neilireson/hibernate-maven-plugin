@@ -28,7 +28,7 @@
 
     <groupId>de.juplo</groupId>
     <artifactId>update-test</artifactId>
-    <name>Hibernate Annotations Tutorial -- Modified to proove the new update-goal</name>
+    <name>Hibernate Annotations Tutorial -- Modified to prove the new update-goal</name>
     <version>0.0.0.0.1b-SNAPSHOT</version>
 
     <properties>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.187</version>
+            <version>1.4.200</version>
         </dependency>
     </dependencies>
 
