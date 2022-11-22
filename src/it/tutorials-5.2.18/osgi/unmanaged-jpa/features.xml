@@ -38,8 +38,8 @@
 
     <bundle>mvn:org.hibernate.common/hibernate-commons-annotations/4.0.5.Final</bundle>
 
-    <bundle>mvn:org.hibernate/hibernate-core/5.4.33.Final</bundle>
-    <bundle>mvn:org.hibernate/hibernate-osgi/5.4.33.Final</bundle>
+    <bundle>mvn:org.hibernate/hibernate-core/5.2.18.Final</bundle>
+    <bundle>mvn:org.hibernate/hibernate-osgi/5.2.18.Final</bundle>
 
     <bundle>mvn:org.hibernate.osgi/unmanaged-jpa/1.0.0</bundle>
   </feature>

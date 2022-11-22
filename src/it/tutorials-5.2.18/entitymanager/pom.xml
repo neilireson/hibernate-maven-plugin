@@ -12,13 +12,13 @@
     <parent>
         <groupId>org.hibernate.tutorials</groupId>
         <artifactId>hibernate-tutorials</artifactId>
-        <version>5.4.33.Final</version>
+        <version>5.2.18.Final</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>hibernate-tutorial-envers</artifactId>
-    <name>Hibernate Envers Tutorial</name>
-    <description>Hibernate tutorial illustrating basic set up and use of Envers</description>
+    <artifactId>hibernate-tutorial-entitymanager</artifactId>
+    <name>Hibernate JPA Tutorial</name>
+    <description>Hibernate tutorial illustrating the use of JPA APIs and annotations for mapping metadata</description>
 
     <properties>
         <!-- Skip artifact deployment -->
@@ -29,8 +29,8 @@
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-envers</artifactId>
-            <version>5.4.33.Final</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.18.Final</version>
         </dependency>
     </dependencies>
 

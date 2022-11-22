@@ -130,7 +130,7 @@
         <!-- Zeichensatz -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Verwendete Versionen -->
-        <hibernate.version>5.4.33.Final</hibernate.version>
+        <hibernate.version>5.2.18.Final</hibernate.version>
         <hibernate-validator.version>5.4.3.Final</hibernate-validator.version>
         <el-api.version>3.0.0</el-api.version>
         <maven.version>3.3.3</maven.version>

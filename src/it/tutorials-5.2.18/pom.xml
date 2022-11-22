@@ -12,7 +12,7 @@
 
     <groupId>org.hibernate.tutorials</groupId>
     <artifactId>hibernate-tutorials</artifactId>
-    <version>5.4.33.Final</version>
+    <version>5.2.18.Final</version>
     <packaging>pom</packaging>
 
     <name>Hibernate Getting Started Guide Tutorials</name>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.33.Final</version>
+            <version>5.2.18.Final</version>
         </dependency>
 
         <!-- Hibernate uses jboss-logging for logging, for the tutorials we will use the sl4fj-simple backend -->

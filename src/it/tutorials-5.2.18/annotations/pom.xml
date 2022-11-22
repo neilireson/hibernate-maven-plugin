@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
   ~ Hibernate, Relational Persistence for Idiomatic Java
   ~
@@ -12,13 +12,13 @@
     <parent>
         <groupId>org.hibernate.tutorials</groupId>
         <artifactId>hibernate-tutorials</artifactId>
-        <version>5.4.33.Final</version>
+        <version>5.2.18.Final</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>hibernate-tutorial-entitymanager</artifactId>
-    <name>Hibernate JPA Tutorial</name>
-    <description>Hibernate tutorial illustrating the use of JPA APIs and annotations for mapping metadata</description>
+    <artifactId>hibernate-tutorial-annotations</artifactId>
+    <name>Hibernate Annotations Tutorial</name>
+    <description>Hibernate tutorial illustrating the use of native APIs and annotations for mapping metadata</description>
 
     <properties>
         <!-- Skip artifact deployment -->
@@ -26,13 +26,6 @@
         <hibernate-maven-plugin.version>@project.version@</hibernate-maven-plugin.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.4.33.Final</version>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
@@ -50,7 +43,6 @@
                 </executions>
                 <configuration>
                     <scanTestClasses>true</scanTestClasses>
-                    <dialect>org.hibernate.dialect.H2Dialect</dialect>
                     <format>true</format>
                 </configuration>
             </plugin>

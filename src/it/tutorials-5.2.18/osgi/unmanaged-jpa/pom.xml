@@ -8,7 +8,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hibernate.osgi</groupId>
-  <artifactId>unmanaged-native</artifactId>
+  <artifactId>unmanaged-jpa</artifactId>
   <version>1.0.0</version>
   <packaging>bundle</packaging>
 
@@ -40,12 +40,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.4.33.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-envers</artifactId>
-      <version>5.4.33.Final</version>
+      <version>5.2.18.Final</version>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
@@ -63,8 +58,8 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Bundle-SymbolicName>org.hibernate.osgi.unmanaged-native</Bundle-SymbolicName>
-            <Bundle-Name>unmanaged-native</Bundle-Name>
+            <Bundle-SymbolicName>org.hibernate.osgi.unmanaged-jpa</Bundle-SymbolicName>
+            <Bundle-Name>unmanaged-jpa</Bundle-Name>
             <Bundle-Version>1.0.0</Bundle-Version>
             <Export-Package>
               org.hibernate.osgitest,
@@ -76,11 +71,8 @@
               org.apache.karaf.shell.console,
               org.apache.karaf.shell.commands,
               org.h2,
-              org.hibernate,
-              org.hibernate.cfg,
-              org.hibernate.service,
               javax.persistence;version="[1.0.0,2.1.0]",
-              <!-- Needed for proxy enhancement during runtime -->
+              <!-- Needed for proxying's Javassist enhancement during runtime -->
               org.hibernate.proxy,
               javassist.util.proxy,
               *
