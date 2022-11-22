@@ -2,13 +2,13 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
     version="1.0">
     <persistence-unit name="persistence-hmp" transaction-type="JTA">
-    
-    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-    
+
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
     	<jta-data-source>HmpArquillianTest</jta-data-source>
-    
+
     	<class>net.java.examples.hmp.model.test.userchangeinfo.UserChangeInfoTestEntity</class>
-    
+
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.show_sql" value="true" />
@@ -16,6 +16,8 @@
             <!-- H2: Unique index or primary key violation -->
             <!-- https://groups.google.com/forum/?fromgroups=#!topic/h2-database/yiK7cLt2YbA -->
             <property name="hibernate.id.new_generator_mappings" value="true" />
+
+            <property name="tomee.jpa.factory.lazy" value="true" />
         </properties>
     </persistence-unit>
 </persistence>

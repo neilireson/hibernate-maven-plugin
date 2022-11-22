@@ -52,7 +52,7 @@
 
     <!-- hibernate-validator is optional. -->
     <!--<bundle>wrap:mvn:javax.validation/validation-api/1.0.0.GA</bundle>
-    <bundle>mvn:org.hibernate/hibernate-validator/4.2.0.Final</bundle>-->
+    <bundle>mvn:org.hibernate/hibernate-validator/5.4.33.Final</bundle>-->
 
     <!-- Optional.  Needed to test infinispan 2lc. -->
     <!-- IMPORTANT: Infinispan requires the JRE sun.misc package.  You

@@ -37,7 +37,6 @@
         <plugin.version>@project.version@</plugin.version>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
