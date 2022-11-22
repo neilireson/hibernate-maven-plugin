@@ -210,9 +210,9 @@
         Exhibition_id varchar(191) not null,
         Exhibition_nodeType integer not null,
         Exhibition_source VARCHAR(191) not null,
-        close timestamp,
+        close time,
         day integer,
-        open timestamp,
+        open time,
         type varchar(255)
     );
 
@@ -357,9 +357,9 @@
         Location_id varchar(191) not null,
         Location_nodeType integer not null,
         Location_source VARCHAR(191) not null,
-        close timestamp,
+        close time,
         day integer,
-        open timestamp,
+        open time,
         type varchar(255)
     );
 
@@ -421,12 +421,12 @@
         firstName varchar(255),
         lastName varchar(255),
         type varchar(255),
-        end timestamp,
-        start timestamp,
+        end date,
+        start date,
         gemkey varchar(31),
         generator varchar(255),
         after varchar(255),
-        date timestamp,
+        date date,
         photographer_id varchar(191),
         photographer_nodeType integer,
         photographer_source VARCHAR(191),
